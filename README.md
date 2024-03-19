@@ -1,10 +1,10 @@
-# [WASI USB]
+# WASI USB
 
 A proposed [WebAssembly System Interface](https://github.com/WebAssembly/WASI) API.
 
 ### Current Phase
 
-Phase 1
+WASI USB is currently in Phase 1
 
 ### Champions
 
