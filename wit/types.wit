@@ -1,0 +1,75 @@
+package component:usb@0.1.0;
+
+interface types {
+
+    enum device-handle-error {
+        io,
+        invalid-param,
+        access,
+        no-device,
+        not-found,
+        busy,
+        timeout,
+        overflow,
+        pipe,
+        interrupted,
+        no-mem,
+        not-supported,
+        bad-descriptor,
+        other
+    }
+
+    enum direction { in, out }
+
+    enum usage-type { data, feedback, feedback-data, reserved }
+
+    enum sync-type { no-sync, asynchronous, adaptive, synchronous }
+
+    enum transfer-type { control, isochronous, bulk, interrupt }
+
+    record endpoint-descriptor {
+        address: u8,
+        direction: direction,
+        interval: u8,
+        max-packet-size: u16,
+        number: u8,
+        refresh: u8, // Audio
+        sync-type: sync-type,
+        synch-address: u8, // Audio
+        transfer-type: transfer-type,
+        usage-type: usage-type
+    }
+
+    record interface-descriptor {
+        class-code: u8,
+        endpoint-descriptors: list<endpoint-descriptor>
+    }
+
+    record %interface {
+        number: u8,
+        descriptors: list<interface-descriptor>
+    }
+
+    record configuration {
+        name: option<string>,
+        max-power: u16,
+        number: u8,
+        interfaces: list<%interface>
+    }
+
+    record version {
+        major: u8,
+        minor: u8,
+        subminor: u8
+    }
+
+    record properties {
+        device-class: u8,
+        device-protocol: u8,
+        device-subclass: u8,
+        device-version: version,
+        product-id: u16,
+        usb-version: version,
+        vendor-id: u16
+    }
+}

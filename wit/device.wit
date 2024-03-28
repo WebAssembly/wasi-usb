@@ -1,0 +1,51 @@
+package component:usb@0.1.0;
+
+interface usb {
+    use types.{properties, configuration, device-handle-error};
+
+    resource usb-device {
+        // Get a list of all configurations of the USB device.
+        configurations: func() -> result<list<configuration>, device-handle-error>;
+
+        // Get properties of the device, such as the device class.
+        properties: func() -> properties;
+
+        // Open the device. If successfull, this will return a device handle which can be used to interact with the device.
+        open: func() -> result<device-handle, device-handle-error>;
+
+        // Get a list of all USB devices the guest is allowed to access.
+        enumerate: static func() -> list<usb-device>;
+    }
+
+    resource device-handle {
+        reset: func();
+        active-configuration: func() -> result<configuration, device-handle-error>;
+
+        select-configuration: func(configuration: u8);
+
+        // **Interfaces**
+
+        // Claim an interface.
+        claim-interface: func(%interface: u8);
+
+        // Release an interface.
+        release-interface: func(%interface: u8);
+
+        // Select an alternate interface.
+        select-alternate-interface: func(%interface: u8, setting: u8) -> result<_, device-handle-error>;
+
+        // **Reading & Writing**
+
+        read-interrupt: func(endpoint: u8) -> result<tuple<u64, list<u8>>, device-handle-error>;
+        write-interrupt: func(endpoint: u8, data: list<u8>) -> result<u64, device-handle-error>;
+
+        read-bulk: func(endpoint: u8) -> result<tuple<u64, list<u8>>, device-handle-error>;
+        write-bulk: func(endpoint: u8, data: list<u8>) -> result<u64, device-handle-error>;
+
+        read-isochronous: func(endpoint: u8) -> result<tuple<u64, list<u8>>, device-handle-error>;
+        write-isochronous: func(endpoint: u8, data: list<u8>) -> result<u64, device-handle-error>;
+
+        read-control: func(endpoint: u8, length: u16) -> result<tuple<u64, list<u8>>, device-handle-error>;
+        write-control: func(endpoint: u8, data: list<u8>) -> result<u64, device-handle-error>;
+    }
+}
