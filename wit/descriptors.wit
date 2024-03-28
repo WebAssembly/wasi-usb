@@ -1,7 +1,7 @@
 package component:usb@0.1.0;
 
 interface descriptors {
-    use types.{direction, sync-type, transfer-type, usage-type};
+    use types.{direction, sync-type, transfer-type, usage-type, version};
 
     record endpoint-descriptor {
         address: u8,
@@ -31,5 +31,20 @@ interface descriptors {
         max-power: u16,
         number: u8,
         interfaces: list<interface-descriptor>
+    }
+
+    record device-descriptor {
+        device-class: u8,
+        device-protocol: u8,
+        device-subclass: u8,
+        device-version: version,
+        product-id: u16,
+        usb-version: version,
+        vendor-id: u16,
+        max-packet-size: u8,
+        manufacturer-string-index: option<u8>,
+        product-string-index: option<u8>,
+        serial-number-string-index: option<u8>,
+        num-configurations: u8
     }
 }

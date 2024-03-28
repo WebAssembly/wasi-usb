@@ -32,14 +32,4 @@ interface types {
         minor: u8,
         subminor: u8
     }
-
-    record properties {
-        device-class: u8,
-        device-protocol: u8,
-        device-subclass: u8,
-        device-version: version,
-        product-id: u16,
-        usb-version: version,
-        vendor-id: u16
-    }
 }

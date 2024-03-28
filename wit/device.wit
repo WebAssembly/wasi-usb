@@ -1,15 +1,14 @@
 package component:usb@0.1.0;
 
 interface usb {
-    use types.{properties, configuration-descriptor, device-handle-error};
-    use descriptors.{configuration-descriptor};
+    use types.{device-handle-error};
+    use descriptors.{configuration-descriptor, device-descriptor};
 
     resource usb-device {
         // Get a list of all configurations of the USB device.
         configurations: func() -> result<list<configuration-descriptor>, device-handle-error>;
 
-        // Get properties of the device, such as the device class.
-        properties: func() -> properties;
+        device-descriptor: func() -> device-descriptor;
 
         // Open the device. If successfull, this will return a device handle which can be used to interact with the device.
         open: func() -> result<device-handle, device-handle-error>;
