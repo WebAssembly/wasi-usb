@@ -27,36 +27,6 @@ interface types {
 
     enum transfer-type { control, isochronous, bulk, interrupt }
 
-    record endpoint-descriptor {
-        address: u8,
-        direction: direction,
-        interval: u8,
-        max-packet-size: u16,
-        number: u8,
-        refresh: u8, // Audio
-        sync-type: sync-type,
-        synch-address: u8, // Audio
-        transfer-type: transfer-type,
-        usage-type: usage-type
-    }
-
-    record interface-descriptor {
-        number: u8,
-        alternate-setting: u8,
-        class-code: u8,
-        subclass-code: u8,
-        protocol: u8,
-        interface-string-index: u8,
-        endpoint-descriptors: list<endpoint-descriptor>
-    }
-
-    record configuration-descriptor {
-        name: option<string>,
-        max-power: u16,
-        number: u8,
-        interfaces: list<interface-descriptor>
-    }
-
     record version {
         major: u8,
         minor: u8,

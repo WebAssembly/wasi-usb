@@ -2,6 +2,7 @@ package component:usb@0.1.0;
 
 interface usb {
     use types.{properties, configuration-descriptor, device-handle-error};
+    use descriptors.{configuration-descriptor};
 
     resource usb-device {
         // Get a list of all configurations of the USB device.

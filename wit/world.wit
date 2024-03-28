@@ -1,5 +1,7 @@
 package component:usb@0.1.0;
 
 world imports {
-    import device;
+    import types;
+    import descriptors;
+    import usb;
 }
