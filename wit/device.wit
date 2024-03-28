@@ -1,11 +1,11 @@
 package component:usb@0.1.0;
 
 interface usb {
-    use types.{properties, configuration, device-handle-error};
+    use types.{properties, configuration-descriptor, device-handle-error};
 
     resource usb-device {
         // Get a list of all configurations of the USB device.
-        configurations: func() -> result<list<configuration>, device-handle-error>;
+        configurations: func() -> result<list<configuration-descriptor>, device-handle-error>;
 
         // Get properties of the device, such as the device class.
         properties: func() -> properties;
@@ -19,7 +19,7 @@ interface usb {
 
     resource device-handle {
         reset: func();
-        active-configuration: func() -> result<configuration, device-handle-error>;
+        active-configuration: func() -> result<configuration-descriptor, device-handle-error>;
 
         select-configuration: func(configuration: u8);
 
