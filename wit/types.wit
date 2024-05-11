@@ -1,4 +1,4 @@
-package component:usb@0.1.0;
+package component:usb@0.2.0;
 
 interface types {
 
