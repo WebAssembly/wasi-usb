@@ -4,7 +4,7 @@ A proposed [WebAssembly System Interface](https://github.com/WebAssembly/WASI) A
 
 ### Current Phase
 
-WASI USB is currently in Phase 0
+WASI USB is currently in Phase 1
 
 ### Champions
 
