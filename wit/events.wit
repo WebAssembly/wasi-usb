@@ -1,0 +1,14 @@
+package component:usb@0.2.0;
+
+interface events {
+    use usb.{usb-device};
+
+    variant device-connection-event {
+        pending,
+        closed,
+        connected(usb-device),
+        disconnected(usb-device)
+    }
+
+    update: func() -> device-connection-event;
+}

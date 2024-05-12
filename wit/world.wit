@@ -3,5 +3,11 @@ package component:usb@0.2.0;
 world imports {
     import types;
     import descriptors;
+    import events;
     import usb;
+
+    export types;
+    export descriptors;
+    export events;
+    export usb;
 }

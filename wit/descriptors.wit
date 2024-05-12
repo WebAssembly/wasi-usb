@@ -22,7 +22,7 @@ interface descriptors {
         class-code: u8,
         subclass-code: u8,
         protocol: u8,
-        interface-string-index: u8,
+        interface-string-index: option<u8>,
         endpoint-descriptors: list<endpoint-descriptor>
     }
 
