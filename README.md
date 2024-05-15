@@ -31,14 +31,15 @@ TODO before entering Phase 2.
   - [[Tricky design choice 1]](#tricky-design-choice-1)
   - [[Tricky design choice 2]](#tricky-design-choice-2)
 - [Considered alternatives](#considered-alternatives)
-  - [[Alternative 1]](#alternative-1)
-  - [[Alternative 2]](#alternative-2)
+  - [Support in web browsers with WebUSB](#support-in-web-browsers-with-webusb)
 - [Stakeholder Interest & Feedback](#stakeholder-interest--feedback)
 - [References & acknowledgements](#references--acknowledgements)
 
 ### Introduction
 
 The WASI USB proposal adds an API for controlling USB devices. The API is meant to be used to with any kind of USB device, and is more low-level than, for example, accessing USb devices through the filesystem. The API design is based on the [libusb](https://libusb.info/) library, which is an often-used library for accessing USB devices in native programs. Just like libusb, this API aims to be a thin wrapper around the USB standard and Operating System APIs, with improved ergonomics where necessary. Access control can be applied to limit the devices a component can access.
+
+A reference implementation can be found [here](https://github.com/Wouter01/USB_WASI).
 
 ### Goals [or Motivating Use Cases, or Scenarios]
 
@@ -87,14 +88,6 @@ Being able to use the API in web browsers would be a nice thing to have, but aft
 - The implementation would be a wrapper around WebUSB. WebUSB is currently only available on Chromium-based browsers and is not standardized. As a result, a large portion of users would not be able to use the feature, and would be forced to switch to a Chromium-based browser.
 - WebUSB is an abstraction over the complete USB API and does not expose everything. For example, it cannot detach kernel drivers, or you cannot read the `bMaxPower` property of the configuration descriptor.
 - WebUSB can only be used on non-standard USB devices, limiting the usability of the API. For example, using the WebUSB API is not allowed for accessing mass storage devices or serial devices, like an Arduino
-
-#### [Alternative 1]
-
-[Describe an alternative which was considered, and why you decided against it.]
-
-#### [Alternative 2]
-
-[etc.]
 
 ### Stakeholder Interest & Feedback
 
