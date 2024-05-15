@@ -38,15 +38,15 @@ TODO before entering Phase 2.
 
 ### Introduction
 
-[The "executive summary" or "abstract". Explain in a few sentences what the goals of the project are, and a brief overview of how the solution works. This should be no more than 1-2 paragraphs.]
+The WASI USB proposal adds an API for controlling USB devices. The API is meant to be used to with any kind of USB device, and is more low-level than, for example, accessing USb devices through the filesystem. The API design is based on the [libusb](https://libusb.info/) library, which is an often-used library for accessing USB devices in native programs. Just like libusb, this API aims to be a thin wrapper around the USB standard and Operating System APIs, with improved ergonomics where necessary. Access control can be applied to limit the devices a component can access.
 
 ### Goals [or Motivating Use Cases, or Scenarios]
 
-[What is the end-user need which this project aims to address?]
+The goal of the proposal is to offer an API to control USB devices on a low level.
 
 ### Non-goals
 
-[If there are "adjacent" goals which may appear to be in scope but aren't, enumerate them here. This section may be fleshed out as your design progresses and you encounter necessary technical and other trade-offs.]
+Support in web browsers is currently not considered. Research was done to evaluate the feasibility, but the conclusion was that while possible, the API would have too much limitations (based on the current support for USB devices in web browsers). See [alternatives](#support-in-web-browsers-with-webusb) for more information.
 
 ### API walk-through
 
@@ -82,7 +82,11 @@ The full API documentation can be found [here](wasi-proposal-template.md).
 
 ### Considered alternatives
 
-[This section is not required if you already covered considered alternatives in the design discussion above.]
+#### Support in web browsers with WebUSB
+Being able to use the API in web browsers would be a nice thing to have, but after experimenting with this idea, it deemed not useful enough. Some points why:
+- The implementation would be a wrapper around WebUSB. WebUSB is currently only available on Chromium-based browsers and is not standardized. As a result, a large portion of users would not be able to use the feature, and would be forced to switch to a Chromium-based browser.
+- WebUSB is an abstraction over the complete USB API and does not expose everything. For example, it cannot detach kernel drivers, or you cannot read the `bMaxPower` property of the configuration descriptor.
+- WebUSB can only be used on non-standard USB devices, limiting the usability of the API. For example, using the WebUSB API is not allowed for accessing mass storage devices or serial devices, like an Arduino
 
 #### [Alternative 1]
 
