@@ -26,7 +26,8 @@ interface usb {
         // **Interfaces**
 
         // Claim an interface.
-        claim-interface: func(%interface: u8);
+        // Claiming an interface can fail. For example, the operating system might not allow claiming the interface.
+        claim-interface: func(%interface: u8) -> result<_, device-handle-error>;
 
         // Release an interface.
         release-interface: func(%interface: u8);
