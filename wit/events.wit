@@ -5,7 +5,6 @@ interface events {
 
     variant device-connection-event {
         pending,
-        closed,
         connected(usb-device),
         disconnected(usb-device)
     }
