@@ -27,7 +27,6 @@ interface descriptors {
     }
 
     record configuration-descriptor {
-        name: option<string>,
         max-power: u16,
         number: u8,
         interfaces: list<interface-descriptor>
