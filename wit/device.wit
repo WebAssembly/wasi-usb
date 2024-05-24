@@ -4,6 +4,8 @@ interface usb {
     use types.{device-handle-error};
     use descriptors.{configuration-descriptor, device-descriptor};
 
+    type duration = u64;
+
     resource usb-device {
         // Get a list of all configurations of the USB device.
         configurations: func() -> result<list<configuration-descriptor>, device-handle-error>;
@@ -18,10 +20,10 @@ interface usb {
     }
 
     resource device-handle {
-        reset: func();
+        reset: func() -> result<_, device-handle-error>;
         active-configuration: func() -> result<u8, device-handle-error>;
 
-        select-configuration: func(configuration: u8);
+        select-configuration: func(configuration: u8) -> result<_, device-handle-error>;
 
         // **Interfaces**
 
@@ -37,16 +39,16 @@ interface usb {
 
         // **Reading & Writing**
 
-        read-interrupt: func(endpoint: u8) -> result<tuple<u64, list<u8>>, device-handle-error>;
-        write-interrupt: func(endpoint: u8, data: list<u8>) -> result<u64, device-handle-error>;
+        read-interrupt: func(endpoint: u8, timeout: duration) -> result<tuple<u64, list<u8>>, device-handle-error>;
+        write-interrupt: func(endpoint: u8, data: list<u8>, timeout: duration) -> result<u64, device-handle-error>;
 
-        read-bulk: func(endpoint: u8, max-size: u16) -> result<tuple<u64, list<u8>>, device-handle-error>;
-        write-bulk: func(endpoint: u8, data: list<u8>) -> result<u64, device-handle-error>;
+        read-bulk: func(endpoint: u8, max-size: u64, timeout: duration) -> result<tuple<u64, list<u8>>, device-handle-error>;
+        write-bulk: func(endpoint: u8, data: list<u8>, timeout: duration) -> result<u64, device-handle-error>;
 
-        read-isochronous: func(endpoint: u8) -> result<tuple<u64, list<u8>>, device-handle-error>;
-        write-isochronous: func(endpoint: u8, data: list<u8>) -> result<u64, device-handle-error>;
+        read-isochronous: func(endpoint: u8, timeout: duration) -> result<tuple<u64, list<u8>>, device-handle-error>;
+        write-isochronous: func(endpoint: u8, data: list<u8>, timeout: duration) -> result<u64, device-handle-error>;
 
-        read-control: func(request-type: u8, request: u8, value: u16, index: u16, max-size: u16) -> result<tuple<u64, list<u8>>, device-handle-error>;
-        write-control: func(request-type: u8, request: u8, value: u16, index: u16, buf: list<u8>) -> result<u64, device-handle-error>;
+        read-control: func(request-type: u8, request: u8, value: u16, index: u16, max-size: u16, timeout: duration) -> result<tuple<u64, list<u8>>, device-handle-error>;
+        write-control: func(request-type: u8, request: u8, value: u16, index: u16, buf: list<u8>, timeout: duration) -> result<u64, device-handle-error>;
     }
 }
