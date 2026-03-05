@@ -21,6 +21,7 @@ The API is designed to be portable across different platforms and environments, 
 
 | Platform | Architecture | Reference Hardware |
 |----------|--------------|--------------------|
+| Windows  | x86          |                    |
 | Linux    | amd64        |                    |
 | Linux    | aarch64      | Rasperry Pi 4      |
 | MacOS    | aarch64      | Macbook Pro M3 MAX |
