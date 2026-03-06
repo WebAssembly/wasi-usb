@@ -12,12 +12,10 @@ WASI USB is currently in Phase 2.
 Please limit to one champion per company or organization
 -->
 - Merlijn Sebrechts
-- Michiel Van Kenhove
-- Friedrich Vandenberghe
 
 ### Portability Criteria
 
-The API is designed to be portable across different platforms and environments, as it is based on the USB standard and Operating System APIs. The reference implementation can be used as a starting point for porting the API to different platforms.
+The API is designed to be portable across different platforms and environments, as it is based on the USB standard and Operating System APIs. The reference implementation can be used as a starting point for porting the API to different platforms. There will be provided at least two independent implementations in order to avoid baking in any libusb-specific behaviour.
 
 | Platform | Architecture | Reference Hardware |
 |----------|--------------|--------------------|
@@ -64,8 +62,10 @@ Being able to use the API in web browsers would be a nice thing to have, but aft
 
 ### References & acknowledgements
 
-Many thanks for valuable feedback and advice from:
+Many thanks for valuable feedback, work and advice from:
 
+- Michiel Van Kenhove
+- Friedrich Vandenberghe
 - Warre Dujardin
 - Wouter Hennen
 - Robbe Leroy
