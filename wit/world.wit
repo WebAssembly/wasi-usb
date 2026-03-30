@@ -24,14 +24,3 @@ world guest {
     import configuration;
     import usb-hotplug;
 }
-
-world cguest {
-    import transfers;
-    import errors;
-    import device;
-    import descriptors;
-    import configuration;
-    import usb-hotplug;
-
-    export wasi:cli/run@0.2.5;
-}
