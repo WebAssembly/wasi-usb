@@ -1,0 +1,46 @@
+package component:usb@0.2.1;
+
+interface transfers {
+    use errors.{libusb-error};
+    /// USB transfer type codes
+    enum transfer-type {
+        control,       // Control transfer (setup packet + optional data)
+        bulk,          // Bulk transfer
+        interrupt,     // Interrupt transfer
+        isochronous    // Isochronous transfer
+    }
+
+    record transfer-setup {
+        bm-request-type: u8,   // Request type (direction, type, recipient)
+        b-request: u8,        // Request (bRequest)
+        w-value: u16,         // Value (wValue)
+        w-index: u16,         // Index (wIndex)
+    }
+
+    /// USB transfer options
+    record transfer-options {
+        endpoint: u8,       // Endpoint address (number + direction)
+        timeout-ms: u32,         // Timeout in milliseconds
+        stream-id: u32,       // Stream ID for USB 3.0 bulk streams
+        iso-packets: u32,       // Number of isochronous packets to send/receive
+    }
+
+    /// Opaque resource representing a submitted USB transfer.
+    /// The backend may use this to track transfer state or IDs.
+    resource transfer {
+        /// Submit a transfer to the USB device with the data
+        /// The transfer is submitted to the device and will be processed asynchronously.
+        submit-transfer: func(data: list<u8>) -> result<_, libusb-error>;
+
+        /// Cancel a previously submitted transfer. This requests cancellation; actual completion (with status = cancelled) will occur asynchronously.
+        /// Returns Ok(_) if cancellation was successfully initiated. If the transfer had already completed or was not found, an error may be returned (e.g., not_found).
+        cancel-transfer: func() -> result<_, libusb-error>;
+
+    }
+
+
+    /// Wait for the transfer to complete. This blocks until the transfer is done.
+    /// Returns Ok(data) if the transfer completed successfully, or an error code if it failed.
+    /// The data returned is the data received from the device (if applicable).
+    await-transfer: func(xfer: transfer) -> result<list<u8>, libusb-error>;
+}

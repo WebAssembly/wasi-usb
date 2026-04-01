@@ -1,13 +1,26 @@
-package component:usb@0.2.0;
+package component:usb@0.2.1;
 
-world imports {
-    import types;
+world host {
+    import transfers;
+    import errors;
+    import device;
     import descriptors;
-    import events;
-    import usb;
+    import configuration;
+    import usb-hotplug;
 
-    export types;
+    export transfers;
+    export errors;
+    export device;
     export descriptors;
-    export events;
-    export usb;
+    export configuration;
+    export usb-hotplug;
+}
+
+world guest {
+    import transfers;
+    import errors;
+    import device;
+    import descriptors;
+    import configuration;
+    import usb-hotplug;
 }
